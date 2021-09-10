@@ -10,7 +10,7 @@ Disclaimer: this program is not finished, only use it at your own risks.
 3. Access them with dmenu
 4. Encrypt files storing passwords
 5. Make it work with dmenu
-6. ls them in tree-like manner
+6. List them in tree-like manner
 7. Add color to output password [done]
 
 ## How To Use It
