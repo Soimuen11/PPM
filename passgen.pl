@@ -30,7 +30,7 @@ sub gen_password{
 	}
 	## Get the generated password and save it into
 	## A file within password-store directory
-	open (PASSWORD_FILE, ">", "$password_name.txt");
+	open (PASSWORD_FILE, ">>", "./password-store/$password_name.txt");
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
@@ -47,7 +47,6 @@ sub init_pass_store(){
 	}
 	return $dir;
 }
-
 
 ## Function calls ##
 main()
