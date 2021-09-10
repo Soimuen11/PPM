@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Term::ANSIColor qw(:constants);
 
 ## Main function ##
 sub main(){
@@ -31,8 +32,8 @@ sub gen_password{
 	## A file within password-store directory
 	open (PASSWORD_FILE, ">", "$password_name.txt");
 	print PASSWORD_FILE @password;
-	close(FH);
-	print @password;
+	close(PASSWORD_FILE);
+	print GREEN "Your password: ", @password, RESET;
 	return @password;
 }
 
