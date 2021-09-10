@@ -9,9 +9,11 @@
 4. Encrypt files storing passwords
 5. Make it work with dmenu
 6. ls them in tree-like manner
+7. Add color to output password
 
 ## How To Use It
 
 1. Clone this repository into /home/$USER/.local/repo
 2. Install dependencies: dmenu
 3. Make file executable: chmod u+x passgen.pl
+4. Create a symlink: ln -s ~/.local/repos/passgen.pl ~/local/bin/passgen
