@@ -10,8 +10,9 @@ sub main(){
 	# if first argument given to script == "init"
 		case "init" {&init_pass_store();}
 	# if first argument given to script == "gen"
-		case "gen" {my @password = &gen_password();}
-		case "list"{&get_passwords_list();}
+		case "gen" { my @password = &gen_password();}
+	# if first argument given to script == "list"
+		case "list" {&get_passwords_list();}
 	}
 }
 
@@ -19,9 +20,9 @@ sub main(){
 ## Give it a name & the nb of characters that you prefer
 sub gen_password {
 	print "How many characters do you want in your password:";
-	my $characters_in_pass = <>;
+	my $characters_in_pass = <STDIN>;
 	print "Name your password:";
-	my $password_name = <>;
+	my $password_name = <STDIN>;
 	my @character_list = (
 		("A".."Z"),
 		("a".."z"),
@@ -57,8 +58,6 @@ sub init_pass_store() {
 # Generate a list of passwords in the password-store directory in a tree-like
 # manner
 sub get_passwords_list {
-	# if there are not any files, print "there no files"
-	# else show list of files
 	my $password_list = `tree ./password-store`;
 	print GREEN $password_list, RESET;
 }
