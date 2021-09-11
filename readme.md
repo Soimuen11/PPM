@@ -5,13 +5,12 @@ Disclaimer: this program is not finished, only use it at your own risks.
 ## Future Features
 
 1. Save password in a file (with a name) in a .password-store
-   directory
-2. Be able to find passwords with a simple command
-3. Access them with dmenu
-4. Encrypt files storing passwords
-5. Make it work with dmenu
-6. List them in tree-like manner
-7. Add color to output password [done]
+   directory [done]
+2. Add color to output password [done]
+3. List them in tree-like manner [done but can be perfected]
+4. Be able to find passwords with a simple command
+5. Encrypt files storing passwords
+6. Make it work with dmenu
 
 ## How To Use It
 
