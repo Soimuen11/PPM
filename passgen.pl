@@ -3,6 +3,12 @@ use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
+#use Xclip;
+# Init GPG
+#use GPG;
+#my $USER = `echo $USER`;
+#my( $gpg ) =  new GPG( homedir => "/home/$USER/.gnupg" );
+#croak $gpg->error() if $gpg->error();
 
 ## Main function ##
 sub main(){
@@ -10,7 +16,7 @@ sub main(){
 	# if first argument given to script == "init"
 		case "init" {&init_pass_store();}
 	# if first argument given to script == "gen"
-		case "gen" { my @password = &gen_password();}
+		case "generate" { my @password = &gen_password();}
 	# if first argument given to script == "list"
 		case "list" {&get_passwords_list();}
 	}
@@ -19,18 +25,22 @@ sub main(){
 ## Generate a random password with special characters
 ## Give it a name & the nb of characters that you prefer
 sub gen_password {
-	print "How many characters do you want in your password:";
-	my $characters_in_pass = <STDIN>;
-	print "Name your password:";
-	my $password_name = <STDIN>;
+	# Ex: ./passgen.pl generate $passwordName $numberOfCharsInPass
+	# Ex: ./passgen.pl generate emailpass 50
+	my $password_name = $ARGV[1];
+	my $characters_in_pass = $ARGV[2];
+	# List of characters potentially in generated password
 	my @character_list = (
 		("A".."Z"),
 		("a".."z"),
 		("!", "@", "#", "\$", "%", "^", "&", "*", "(", ")", "[", "]"),
 		(0..9)
 	);
+	# Size of the array @character_list for use in loop
 	my $array_size = scalar @character_list;
+	# Initializing empty array to store the new password
 	my @password = ();
+	# Get a random character until you have the right wanted by the user.
 	for (my $i = 0; $i < $characters_in_pass; $i++) {
 		my $random = rand($array_size);
 		push @password, $character_list[$random];
@@ -41,6 +51,8 @@ sub gen_password {
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
+	#	my $encrypted_password->encrypt( plaintext => $password_name.txt, output => "$password_name.gpg");
+	#	croak $gpg->error() if $gpg->error();
 	return @password;
 }
 
