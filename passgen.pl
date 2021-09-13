@@ -19,6 +19,8 @@ sub main(){
 		case "generate" { my @password = &gen_password();}
 	# if first argument given to script == "list"
 		case "list" {&get_passwords_list();}
+	# if first argument given to script == "show"
+		case "show" {&show_password();}	
 	}
 }
 
@@ -72,6 +74,12 @@ sub init_pass_store() {
 sub get_passwords_list {
 	my $password_list = `tree ./password-store`;
 	print GREEN $password_list, RESET;
+}
+
+# Show requested password
+sub show_password {
+	my $requested_password = `cat ./password-store/$ARGV[1].txt`;
+	print GREEN "Your password:\n", $requested_password, RESET;
 }
 
 ## Function calls ##
