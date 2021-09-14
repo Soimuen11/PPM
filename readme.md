@@ -21,6 +21,7 @@ For now, here are the available commands:
 3. ./ppm.pl generate $PASSWORD_NAME $NB_CHARACTERS_IN_PASSWORD
 4. ./ppm.pl show $PASSWORD_NAME
 5. ./ppm.pl clip $PASSWORD_NAME
+6. ./ppm.pl add $PASSWORD_NAME
 
 ## How To Install It
 
