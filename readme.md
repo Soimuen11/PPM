@@ -1,4 +1,4 @@
-# A Perl Password Generator
+# The Perl Password Manager
 
 Disclaimer: this program is not finished, only use it at your own risks.
 
@@ -16,11 +16,11 @@ Disclaimer: this program is not finished, only use it at your own risks.
 ## How To Use It
 
 For now, here are the available commands:
-1. ./passgen.pl list: list passwords in password-store
-2. ./passgen.pl init: init the password-store directory
-3. ./passgen.pl generate $PASSWORD_NAME $NB_CHARACTERS_IN_PASSWORD
-4. ./passgen.pl show $PASSWORD_NAME
-5. ./passgen.pl clip $PASSWORD_NAME
+1. ./ppm.pl list: list passwords in password-store
+2. ./ppm.pl init: init the password-store directory
+3. ./ppm.pl generate $PASSWORD_NAME $NB_CHARACTERS_IN_PASSWORD
+4. ./ppm.pl show $PASSWORD_NAME
+5. ./ppm.pl clip $PASSWORD_NAME
 
 ## How To Install It
 

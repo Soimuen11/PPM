@@ -4,11 +4,10 @@ use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
 use Clipboard::Xclip;
-# Init GPG
 use Crypt::GPG;
-#my $USER = `echo $USER`;
-#my( $gpg ) =  new GPG( homedir => "/home/$USER/.gnupg" );
-#croak $gpg->error() if $gpg->error();
+# my $USER = $ENV{ 'USER' };
+# my $gpg =  new GPG( homedir => "/home/$USER/.gnupg" );
+# croak $gpg->error() if $gpg->error();
 
 ## Main function ##
 sub main(){
@@ -55,8 +54,8 @@ sub gen_password {
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
-	#	my $encrypted_password->encrypt( plaintext => $password_name.txt, output => "$password_name.gpg");
-	#	croak $gpg->error() if $gpg->error();
+	# my $encrypted_password->encrypt( plaintext => "$password_name.txt", output => "$password_name.gpg");
+	# croak $gpg->error() if $gpg->error();
 	return @password;
 }
 
@@ -68,7 +67,6 @@ sub init_pass_store() {
 		mkdir $dir;
 		print "created password-store directory";
 	}
-	return $dir;
 }
 
 # Generate a list of passwords in the password-store directory in a tree-like
