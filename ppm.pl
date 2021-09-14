@@ -5,9 +5,10 @@ use Term::ANSIColor qw(:constants);
 use Switch;
 use Clipboard::Xclip;
 use Crypt::GPG;
-# my $USER = $ENV{ 'USER' };
-# my $gpg =  new GPG( homedir => "/home/$USER/.gnupg" );
-# croak $gpg->error() if $gpg->error();
+my $USER = $ENV{ 'USER' };
+my $gpg =  new Crypt::GPG( homedir => "/home/$USER/.gnupg" );
+print $gpg;
+#croak $gpg->error() if $gpg->error();
 
 ## Main function ##
 sub main(){
@@ -22,6 +23,8 @@ sub main(){
 		case "show" {&show_password();}
 	# if first argument given to script == "clip"
 		case "clip" {&clip_password();}
+	# if first argument given to script == "add"
+		case "add" {&add_password();}
 	}
 }
 
@@ -54,9 +57,19 @@ sub gen_password {
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
-	# my $encrypted_password->encrypt( plaintext => "$password_name.txt", output => "$password_name.gpg");
-	# croak $gpg->error() if $gpg->error();
 	return @password;
+}
+
+# Create the password yourself
+sub add_password() {
+	my $password_name = $ARGV[1];
+	print "Enter a password: ";
+	my $password = <STDIN>;
+	open (PASSWORD_FILE, ">>", "./password-store/$password_name.txt");
+	print PASSWORD_FILE $password;
+	close(PASSWORD_FILE);
+	print GREEN "Your password: ", $password, RESET;
+	return $password;
 }
 
 ## If the password-store dir doesn't exist,
