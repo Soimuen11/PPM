@@ -88,8 +88,7 @@ sub show_password() {
 sub clip_password() {
 	# temporarily decript file content
 	# copy password to clipboard
-	my $clipped_password = `cat ./password-store/$ARGV[1].txt | xclip`;
-	print GREEN "Your password:\n", $clipped_password, RESET;
+	system("cat ./password-store/$ARGV[1].txt | xclip -selection c")
 }
 
 ## Function calls ##
