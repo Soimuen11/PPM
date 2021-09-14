@@ -3,9 +3,9 @@ use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
-#use Xclip;
+use Clipboard::Xclip;
 # Init GPG
-#use GPG;
+use Crypt::GPG;
 #my $USER = `echo $USER`;
 #my( $gpg ) =  new GPG( homedir => "/home/$USER/.gnupg" );
 #croak $gpg->error() if $gpg->error();
@@ -20,7 +20,9 @@ sub main(){
 	# if first argument given to script == "list"
 		case "list" {&get_passwords_list();}
 	# if first argument given to script == "show"
-		case "show" {&show_password();}	
+		case "show" {&show_password();}
+	# if first argument given to script == "clip"
+		case "clip" {&clip_password();}
 	}
 }
 
@@ -71,15 +73,23 @@ sub init_pass_store() {
 
 # Generate a list of passwords in the password-store directory in a tree-like
 # manner
-sub get_passwords_list {
+sub get_passwords_list() {
 	my $password_list = `tree ./password-store`;
 	print GREEN $password_list, RESET;
 }
 
 # Show requested password
-sub show_password {
+sub show_password() {
 	my $requested_password = `cat ./password-store/$ARGV[1].txt`;
 	print GREEN "Your password:\n", $requested_password, RESET;
+}
+
+# Clip password (name provided as second argument to the script)
+sub clip_password() {
+	# temporarily decript file content
+	# copy password to clipboard
+	my $clipped_password = `cat ./password-store/$ARGV[1].txt | xclip`;
+	print GREEN "Your password:\n", $clipped_password, RESET;
 }
 
 ## Function calls ##
