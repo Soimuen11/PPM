@@ -9,12 +9,20 @@ Disclaimer: this program is not finished, only use it at your own risks.
 2. Add color to output password [done]
 3. List them in tree-like manner [done]
 4. Encrypt files storing passwords
-5. Be able to retrieve passwords with a simple command
-(copy password to clipboard)
+5. copy password to clipboard [done]
 7. Make it work with dmenu
-8. Add a install.sh script
+8. Add a install.sh script [work in progress]
 
 ## How To Use It
+
+For now, here are the available commands:
+1. ./passgen.pl list: list passwords in password-store
+2. ./passgen.pl init: init the password-store directory
+3. ./passgen.pl generate $PASSWORD_NAME $NB_CHARACTERS_IN_PASSWORD
+4. ./passgen.pl show $PASSWORD_NAME
+5. ./passgen.pl clip $PASSWORD_NAME
+
+## How To Install It
 
 Option 1:
 
