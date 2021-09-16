@@ -1,7 +1,9 @@
 # The Perl Password Manager [PPM]
 
-Disclaimer: This program is not finished, only use it at your own risks.
-Contribute: If you wish to contribute, feel free to make a pull request!
+**Disclaimer:** This program is not finished, only use it at your own risks.
+
+**Contribute:** If you wish to contribute, feel free to make a pull request! If
+you feel like something is missing, send me suggestions!
 
 ## Future Features
 
@@ -16,24 +18,39 @@ Contribute: If you wish to contribute, feel free to make a pull request!
 
 ## How To Use It
 
-For now, here are the available commands:
-1. **./ppm.pl list**: list passwords in password-store
-2. **./ppm.pl init**: init the password-store directory
-3. **./ppm.pl generate** $PASSWORD_NAME $NB_CHARACTERS_IN_PASSWORD
-4. **./ppm.pl show** $PASSWORD_NAME
-5. **./ppm.pl clip** $PASSWORD_NAME
-6. **./ppm.pl add** $PASSWORD_NAME
+Once installed, this program has been designed to be used in a terminal. For
+now, here are the available commands:
+
+1. ppm **list**
+2. ppm **init**
+3. ppm **generate** [password_name] [nb_characters_in_password]
+4. ppm **show** [password_name]
+5. ppm **clip** [password_name]
+6. ppm **add** [password_name]
+
+As a first step, it is important to run **ppm init** to set up the password
+store. You may then generate passwords with **ppm generate** (randomly
+generates a password with the number of characters which you specified), or
+**ppm add**. To show a password or add it to your clipboard, you can
+respectively use the commands **ppm show** and **ppm clip**. Finally, you may
+list all the passwords in your password store with the command **ppm list**.
 
 ## How To Install It
 
-Option 1:
++ Dependencies:
+	1. Perl 5 (should already be installed)
+	2. Dmenu
+	3. Tree
+	4. gpg
 
-3. Clone this repository into /home/$USER/.local/repo
-4. Install dependencies: dmenu, tree, gpg
-5. Make file executable: chmod u+x ppm.pl
-6. Create a symlink: ln -s ~/.local/repos/ppm.pl ~/local/bin/ppm
++ Clone this repository in the location of choice:
 
-Option 2:
+```bash
+git clone git@github.com:Soimuen11/PassGen.git
+```
 
-+ Clone repo in location of choice
-+ Run install.sh
++ Run the installer script:
+
+```bash
+cd PassGen/ && chmod u+x installer.sh && /bin/bash installer.sh
+```
