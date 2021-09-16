@@ -4,7 +4,7 @@ use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
 use Clipboard::Xclip;
-#use Crypt::GPG;
+use Crypt::GPG;
 #my $USER = $ENV{ 'USER' };
 #my $gpg =  new Crypt::GPG( homedir => "/home/$USER/.gnupg" );
 #print $gpg;
@@ -25,6 +25,8 @@ sub main(){
 		case "clip" {&clip_password();}
 	# if first argument given to script == "add"
 		case "add" {&add_password();}
+	# if first argument given to script == "dmenu"
+		case "dmenu" {&dmenu_clipper();}
 	}
 }
 
@@ -96,7 +98,7 @@ sub show_password() {
 		or die "Could not open file '$requested_password' $!";
 	while (my $row = <$fh>) {
 		chomp $row;
-		print "$row\n";
+		print GREEN "Your password: $row", RESET;
 	}
 }
 
@@ -105,6 +107,11 @@ sub clip_password() {
 	# temporarily decript file content
 	# copy password to clipboard
 	system("cat ./password-store/$ARGV[1].txt | xclip -selection c")
+}
+
+sub dmenu_clipper() {
+	my $requested_password = `ls ./password-store/ | /usr/bin/dmenu`;
+	system("xclip -selection c ./password-store/$requested_password")
 }
 
 ## Function calls ##
