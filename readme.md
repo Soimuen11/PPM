@@ -4,14 +4,23 @@
 
 + This program is not finished, only use it at your own risks.
 + The installer script has not yet been tested.
++ This is mainly a CLI utility. For efficiency purposes, I recommend having a
+  keybinding for the **ppm dmenu** command in your Tiling Window Manager
+  configuration.
 
-**Contribute:** If you wish to contribute, feel free to make a pull request! If
+**Contribute:** 
+
+If you wish to contribute, feel free to make a pull request! If
 you feel like something is missing, send me suggestions!
 
 ## Future Features
 
 1. Re-write subroutines which use bash to strive and only use Perl syntax.
-2. Encrypt files storing passwords
+2. Encrypt files storing passwords:
+	+ Add existing gpg key/passphrase to ppm
+	+ Encrypt a password file
+	+ Decrypt a password file
+3. Add a simple GUI or ncurses interface
 
 ## How To Use It
 
@@ -45,13 +54,21 @@ your clipboard.
 	- Tree
 	- gpg
 
+```bash
+# For Debian & Ubuntu-based Linux systems
+sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg
+
+# For Arch-based Linux systems
+sudo pacman -Syu perl dmenu tree gpg
+```
+
 + Set up gpg:
 	
 ```bash
 gpg --full-gen-key # Initialize /home/$USER/.gnupg and RSA key
 ```
 
-+ Clone this repository in the location of choice:
++ Clone this repository in the location of your choice:
 
 ```bash
 git clone git@github.com:Soimuen11/PassGen.git
