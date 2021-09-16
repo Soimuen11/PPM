@@ -4,10 +4,10 @@ use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
 use Clipboard::Xclip;
-use Crypt::GPG;
-my $USER = $ENV{ 'USER' };
-my $gpg =  new Crypt::GPG( homedir => "/home/$USER/.gnupg" );
-print $gpg;
+#use Crypt::GPG;
+#my $USER = $ENV{ 'USER' };
+#my $gpg =  new Crypt::GPG( homedir => "/home/$USER/.gnupg" );
+#print $gpg;
 #croak $gpg->error() if $gpg->error();
 
 ## Main function ##
@@ -91,8 +91,13 @@ sub get_passwords_list() {
 
 # Show requested password
 sub show_password() {
-	my $requested_password = `cat ./password-store/$ARGV[1].txt`;
-	print GREEN "Your password:\n", $requested_password, RESET;
+	my $requested_password = "./password-store/$ARGV[1].txt";
+	open(my $fh, '<:encoding(UTF-8)', $requested_password)
+		or die "Could not open file '$requested_password' $!";
+	while (my $row = <$fh>) {
+		chomp $row;
+		print "$row\n";
+	}
 }
 
 # Clip password (name provided as second argument to the script)
