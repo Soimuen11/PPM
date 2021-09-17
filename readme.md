@@ -1,26 +1,26 @@
 # The Perl Password Manager [PPM]
 
-**Disclaimers:** 
+**Disclaimers:**
 
 + This program is not finished, only use it at your own risks.
 + The installer script has not yet been tested.
 + This is mainly a CLI utility. For efficiency purposes, I recommend having a
   keybinding for the **ppm dmenu** command in your Tiling Window Manager
   configuration.
++ Yes, this project is inspired by another password manager called **pass**.
 
-**Contribute:** 
+**Contribute:**
 
 If you wish to contribute, feel free to make a pull request! If
 you feel like something is missing, send me suggestions!
 
-## Future Features
+## To-Dos
 
-1. Re-write subroutines which use bash to strive and only use Perl syntax.
-2. Encrypt files storing passwords:
-	+ Add existing gpg key/passphrase to ppm
-	+ Encrypt a password file
-	+ Decrypt a password file
-3. Add a simple GUI or ncurses interface
+1. Get secret key ID for every potential user, not just me.
+2. Replace **install.sh** with a **make file**
+3. Write **man** page
+4. Re-write subroutines which use bash to strive and only use Perl syntax.
+5. Add a simple GUI or ncurses interface
 
 ## How To Use It
 
@@ -63,7 +63,7 @@ sudo pacman -Syu perl dmenu tree gpg
 ```
 
 + Set up gpg:
-	
+
 ```bash
 gpg --full-gen-key # Initialize /home/$USER/.gnupg and RSA key
 ```
