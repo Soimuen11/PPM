@@ -81,12 +81,12 @@ gpg --full-gen-key # Initialize /home/$USER/.gnupg and RSA key
 + To install from source, run the following commands:
 
 ```bash
-# Create /home/$USER/.local/repo && /home/$USER/.local/bin
+# Create /home/$USER/.local/repos && /home/$USER/.local/bin
 # If they do not already exist
-mkdir -p /home/$USER/.local/repo /home/$USER/.local/bin
+mkdir -p /home/$USER/.local/repos /home/$USER/.local/bin
 
-# Cd into /home/$USER/.local/repo
-cd /home/$USER/.local/repo
+# Cd into /home/$USER/.local/repos
+cd /home/$USER/.local/repos
 
 # Clone the repository
 git clone https://github.com/Soimuen11/PPM.git
