@@ -16,11 +16,11 @@ you feel like something is missing, send me suggestions!
 
 ## To-Dos
 
-1. Get secret key ID for every potential user, not just me.
-2. Write a **make file**
-3. Write **man** page
+1. Fix "show" function.
+2. Write a **make file**.
+3. Write **man** page.
 4. Re-write subroutines which use bash to strive and only use Perl syntax.
-5. Add a simple GUI or ncurses interface
+5. Add a simple GUI or ncurses interface.
 
 ## How To Use It
 
