@@ -94,6 +94,10 @@ git clone git@github.com:Soimuen11/PPM.git
 # Cd into the project repository
 cd PPM/
 
+# Install required CPAN modules
+cpan Switch
+cpan Term::ANSIColor	
+
 # Give execute permissions to ppm.pl
 chmod u+x ppm.pl
 
