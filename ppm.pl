@@ -3,29 +3,19 @@ use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
-use Clipboard::Xclip;
-use Crypt::GPG;
-#my $USER = $ENV{ 'USER' };
-#my $gpg =  new Crypt::GPG( homedir => "/home/$USER/.gnupg" );
-#print $gpg;
-#croak $gpg->error() if $gpg->error();
+# use Clipboard::Xclip;
+# use GnuPG::Interface;
+# use IO::Handle;
 
 ## Main function ##
 sub main(){
 	switch($ARGV[0]) {
-	# if first argument given to script == "init"
-		case "init" {&init_pass_store();}
-	# if first argument given to script == "gen"
-		case "generate" { my @password = &gen_password();}
-	# if first argument given to script == "list"
+		case "init" {&init_env();}
+		case "generate" {&gen_password();}
 		case "list" {&get_passwords_list();}
-	# if first argument given to script == "show"
-		case "show" {&show_password();}
-	# if first argument given to script == "clip"
+		# case "show" {&show_password();}
 		case "clip" {&clip_password();}
-	# if first argument given to script == "add"
 		case "add" {&add_password();}
-	# if first argument given to script == "dmenu"
 		case "dmenu" {&dmenu_clipper();}
 	}
 }
@@ -33,8 +23,6 @@ sub main(){
 ## Generate a random password with special characters
 ## Give it a name & the nb of characters that you prefer
 sub gen_password {
-	# Ex: ./passgen.pl generate $passwordName $numberOfCharsInPass
-	# Ex: ./passgen.pl generate emailpass 50
 	my $password_name = $ARGV[1];
 	my $characters_in_pass = $ARGV[2];
 	# List of characters potentially in generated password
@@ -55,11 +43,11 @@ sub gen_password {
 	}
 	## Get the generated password and save it into
 	## A file within password-store directory
-	open (PASSWORD_FILE, ">>", "./password-store/$password_name.txt");
+	open (PASSWORD_FILE, ">>", "./password-store/$password_name");
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
-	return @password;
+	&encrypt_password_file($password_name);
 }
 
 # Create the password yourself
@@ -67,20 +55,29 @@ sub add_password() {
 	my $password_name = $ARGV[1];
 	print "Enter a password: ";
 	my $password = <STDIN>;
-	open (PASSWORD_FILE, ">>", "./password-store/$password_name.txt");
+	open (PASSWORD_FILE, ">>", "./password-store/$password_name");
 	print PASSWORD_FILE $password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", $password, RESET;
-	return $password;
+	&encrypt_password_file($password_name);
 }
 
-## If the password-store dir doesn't exist,
-## create it
-sub init_pass_store() {
-	my  $dir = "./password-store";
-	if (!-e $dir){
+# Initialize password store and .gpg-id
+sub init_env() {
+	my $dir = "./password-store";
+	my $config_file = "./.gpg-id";
+	my $USER = $ENV{'USER'};
+	if (!-e $dir) {
 		mkdir $dir;
-		print "created password-store directory";
+		print GREEN "Created password-store directory\n", RESET;
+	}
+	if (!-e $config_file) {
+		print GREEN "Hello $USER, please enter your gpg ID.\n", RESET;
+		print GREEN "If you do not know it, you may find it with the following command:\n", RESET;
+		print GREEN "gpg --list-secret-keys\n", RESET;
+		my $keyId = <STDIN>;
+		open (CONFIG_FILE, ">>", "$config_file");
+		print CONFIG_FILE $keyId;
 	}
 }
 
@@ -92,27 +89,43 @@ sub get_passwords_list() {
 }
 
 # Show requested password
-sub show_password() {
-	my $requested_password = "./password-store/$ARGV[1].txt";
-	open(my $fh, '<:encoding(UTF-8)', $requested_password)
-		or die "Could not open file '$requested_password' $!";
-	while (my $row = <$fh>) {
-		chomp $row;
-		print GREEN "Your password: $row", RESET;
-	}
-}
+#sub show_password() {
+#	my $requested_password = "./password-store/$ARGV[1].gpg";
+#	open(my $fh, '<:encoding(UTF-8)', $requested_password)
+#		or die "Could not open file '$requested_password' $!";
+#	while (my $row = <$fh>) {
+#		chomp $row;
+#		print GREEN "Your password: $row", RESET;
+#	}
+#}
 
-# Clip password (name provided as second argument to the script)
+# Temporarily decrypt password file
+# && Clip password (name provided as second argument to the script)
 sub clip_password() {
-	# temporarily decript file content
-	# copy password to clipboard
-	system("cat ./password-store/$ARGV[1].txt | xclip -selection c")
+	system("gpg -d ./password-store/$ARGV[1].gpg | xclip -selection c")
 }
 
 sub dmenu_clipper() {
-	my $requested_password = `ls ./password-store/ | /usr/bin/dmenu`;
-	system("xclip -selection c ./password-store/$requested_password")
+	print my $dmenu_choice = `ls ./password-store/ | /usr/bin/dmenu`;
+	chomp($dmenu_choice);
+	system("gpg -d ./password-store/$dmenu_choice | xclip -selection c");
 }
 
-## Function calls ##
+sub encrypt_password_file() {
+	my ($password_name) = @_;
+	my $config_file = "./.gpg-id";
+	my $keyId = "";
+	open(DATA, "<$config_file") or die "Couldn't open config file .gpg-id";
+	while (<DATA>) { $keyId = "$_";	}
+	chomp($keyId);
+	system("/usr/bin/gpg -r $keyId --encrypt ./password-store/$password_name");
+	unlink "./password-store/$password_name";
+	if (-e "./password-store/$password_name.gpg") {
+		print "\nCreated file ./password-store/$password_name.gpg";
+	}else{
+		print "\nError, file has not been created.";
+	}
+}
+
+## Function Calls ##
 main();

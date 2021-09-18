@@ -52,7 +52,8 @@ your clipboard.
 	- Perl 5 (should already be installed)
 	- Dmenu
 	- Tree
-	- gpg
+	- Gpg
+	- Xclip
 
 ```bash
 # For Debian & Ubuntu-based Linux systems
