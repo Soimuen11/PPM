@@ -17,7 +17,7 @@ you feel like something is missing, send me suggestions!
 ## To-Dos
 
 1. Get secret key ID for every potential user, not just me.
-2. Replace **install.sh** with a **make file**
+2. Write a **make file**
 3. Write **man** page
 4. Re-write subroutines which use bash to strive and only use Perl syntax.
 5. Add a simple GUI or ncurses interface
@@ -57,10 +57,10 @@ your clipboard.
 
 ```bash
 # For Debian & Ubuntu-based Linux systems
-sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg
+sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg xclip
 
 # For Arch-based Linux systems
-sudo pacman -Syu perl dmenu tree gpg
+sudo pacman -Syu perl dmenu tree gpg xclip
 ```
 
 + Set up gpg:
