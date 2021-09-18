@@ -2,8 +2,7 @@
 
 **Disclaimers:**
 
-+ This program is not finished, only use it at your own risks.
-+ The installer script has not yet been tested.
++ This program is still being tested, only use it at your own risks.
 + This is mainly a CLI utility. For efficiency purposes, I recommend having a
   keybinding for the **ppm dmenu** command in your Tiling Window Manager
   configuration.
@@ -22,10 +21,14 @@ you feel like something is missing, send me suggestions!
 	+ Copy a password (ppm cp)
 	+ Remove a password (ppm rm)
 	+ Help (ppm help)
-3. Write a **make file**.
+3. Package PPM for debian and arch-based distros.
 4. Write **man** page.
 5. Re-write subroutines which use bash to strive and only use Perl syntax.
-6. Add a simple GUI or ncurses interface.
+   Potential modules to implement to do so: 
+   + IO::Handle
+   + GnuPG::Interface
+   + Clipboard::Xclip
+7. Add a simple GUI or ncurses interface.
 
 ## How To Use It
 
@@ -59,13 +62,14 @@ your clipboard.
 	- Tree
 	- Gpg
 	- Xclip
+	- Git
 
 ```bash
 # For Debian & Ubuntu-based Linux systems
-sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg xclip
+sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg xclip git
 
 # For Arch-based Linux systems
-sudo pacman -Syu perl dmenu tree gpg xclip
+sudo pacman -Syu perl dmenu tree gpg xclip git
 ```
 
 + Set up gpg:
@@ -74,14 +78,28 @@ sudo pacman -Syu perl dmenu tree gpg xclip
 gpg --full-gen-key # Initialize /home/$USER/.gnupg and RSA key
 ```
 
-+ Clone this repository in the location of your choice:
++ To install from source, run the following commands:
 
 ```bash
-git clone git@github.com:Soimuen11/PassGen.git
-```
+# Create /home/$USER/.local/repo && /home/$USER/.local/bin
+# If they do not already exist
+mkdir -p /home/$USER/.local/repo /home/$USER/.local/bin
 
-+ Run the installer script:
+# Cd into /home/$USER/.local/repo
+cd /home/$USER/.local/repo
 
-```bash
-cd PassGen/ && chmod u+x installer.sh && /bin/bash installer.sh
+# Clone the repository
+git clone git@github.com:Soimuen11/PPM.git
+
+# Cd into the project repository
+cd PPM/
+
+# Give execute permissions to ppm.pl
+chmod u+x ppm.pl
+
+# Create a symlink from .local/repo to .local/bin
+ln -s /home/$USER/.local/repo/PPM/ppm.pl /home/$USER/.local/bin/ppm
+
+# Optional step: Add the **ppm dmenu** command to your tiling window manager's
+# list of keybindings.  
 ```
