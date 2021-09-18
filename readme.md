@@ -89,7 +89,7 @@ mkdir -p /home/$USER/.local/repo /home/$USER/.local/bin
 cd /home/$USER/.local/repo
 
 # Clone the repository
-git clone git@github.com:Soimuen11/PPM.git
+git clone https://github.com/Soimuen11/PPM.git
 
 # Cd into the project repository
 cd PPM/
