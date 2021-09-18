@@ -17,10 +17,15 @@ you feel like something is missing, send me suggestions!
 ## To-Dos
 
 1. Fix "show" function.
-2. Write a **make file**.
-3. Write **man** page.
-4. Re-write subroutines which use bash to strive and only use Perl syntax.
-5. Add a simple GUI or ncurses interface.
+2. Add following functionalities:
+	+ Move a password (ppm mv)
+	+ Copy a password (ppm cp)
+	+ Remove a password (ppm rm)
+	+ Help (ppm help)
+3. Write a **make file**.
+4. Write **man** page.
+5. Re-write subroutines which use bash to strive and only use Perl syntax.
+6. Add a simple GUI or ncurses interface.
 
 ## How To Use It
 
