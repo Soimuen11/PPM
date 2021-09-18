@@ -72,9 +72,7 @@ sub init_env() {
 		print GREEN "Created password-store directory\n", RESET;
 	}
 	if (!-e $config_file) {
-		print GREEN "Hello $USER, please enter your gpg ID.\n", RESET;
-		print GREEN "If you do not know it, you may find it with the following command:\n", RESET;
-		print GREEN "gpg --list-secret-keys\n", RESET;
+		print GREEN "Hello $USER, please enter the email address you use with gnupg:\n", RESET;
 		my $keyId = <STDIN>;
 		open (CONFIG_FILE, ">>", "$config_file");
 		print CONFIG_FILE $keyId;
