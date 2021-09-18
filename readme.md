@@ -17,10 +17,12 @@ you feel like something is missing, send me suggestions!
 
 1. Fix "show" function.
 2. Add following functionalities:
-	+ Move a password (ppm mv)
-	+ Copy a password (ppm cp)
-	+ Remove a password (ppm rm)
-	+ Help (ppm help)
+	+ Move a password (passgen mv)
+	+ Copy a password (passgen cp)
+	+ Remove a password (passgen rm)
+	+ Help (passgen help)
+	+ Make the binary work from anywhere in filesystem
+	+ Add possibility to create directories in password-store
 3. Package PPM for debian and arch-based distros.
 4. Write **man** page.
 5. Re-write subroutines which use bash to strive and only use Perl syntax.
@@ -35,13 +37,13 @@ you feel like something is missing, send me suggestions!
 Once installed, this program has been designed to be used in a terminal. For
 now, here are the available commands:
 
-1. ppm **list**
-2. ppm **init**
-3. ppm **generate** [password_name] [nb_characters_in_password]
-4. ppm **show** [password_name]
-5. ppm **clip** [password_name]
-6. ppm **add** [password_name]
-7. ppm **dmenu**
+1. passgen **list**
+2. passgen **init**
+3. passgen **generate** [password_name] [nb_characters_in_password]
+4. passgen **show** [password_name]
+5. passgen **clip** [password_name]
+6. passgen **add** [password_name]
+7. passgen **dmenu**
 
 As a first step, it is important to run **ppm init** to set up the password
 store. You may then generate passwords with **ppm generate** (randomly
@@ -102,7 +104,7 @@ cpan Term::ANSIColor
 chmod u+x ppm.pl
 
 # Create a symlink from .local/repo to .local/bin
-ln -s /home/$USER/.local/repo/PPM/ppm.pl /home/$USER/.local/bin/ppm
+ln -s /home/$USER/.local/repo/PPM/ppm.pl /home/$USER/.local/bin/passgen
 
 # Optional step: Add the **ppm dmenu** command to your tiling window manager's
 # list of keybindings.  
