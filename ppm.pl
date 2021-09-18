@@ -3,9 +3,6 @@ use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
-# use Clipboard::Xclip;
-# use GnuPG::Interface;
-# use IO::Handle;
 
 ## Main function ##
 sub main(){
