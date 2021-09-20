@@ -1,5 +1,9 @@
 # The Perl Password Manager [PPM]
 
+* [To-Dos](#to-dos)
+* [How To Use It](#how-to-use-it)
+* [How To Install It](#how-to-install-it)
+
 **Disclaimers:**
 
 + This program is still being tested, only use it at your own risks.
