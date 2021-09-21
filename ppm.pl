@@ -10,7 +10,7 @@ sub main(){
 		case "init" {&init_env();}
 		case "generate" {&gen_password();}
 		case "list" {&get_passwords_list();}
-		# case "show" {&show_password();}
+		case "show" {&show_password();}
 		case "clip" {&clip_password();}
 		case "add" {&add_password();}
 		case "dmenu" {&dmenu_clipper();}
@@ -84,15 +84,17 @@ sub get_passwords_list() {
 }
 
 # Show requested password
-#sub show_password() {
-#	my $requested_password = "./password-store/$ARGV[1].gpg";
-#	open(my $fh, '<:encoding(UTF-8)', $requested_password)
-#		or die "Could not open file '$requested_password' $!";
-#	while (my $row = <$fh>) {
-#		chomp $row;
-#		print GREEN "Your password: $row", RESET;
-#	}
-#}
+sub show_password() {
+	my $requested_password = `gpg -d ./password-store/$ARGV[1].gpg`;
+	chomp($requested_password);
+	print "$requested_password\n";
+	#open(my $fh, '<:encoding(UTF-8)', $requested_password)
+	#	or die "Could not open file '$requested_password' $!";
+	#while (my $row = <$fh>) {
+	#	chomp $row;
+	#	print GREEN "Your password: $row", RESET;
+	#}
+}
 
 # Temporarily decrypt password file
 # && Clip password (name provided as second argument to the script)
