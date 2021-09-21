@@ -20,9 +20,9 @@ you feel like something is missing, send me suggestions!
 ## To-Dos
 
 1. Add following functionalities:
-	+ Move a password (passgen mv)
+	+ Remove a password with **passgen rm** [done]
+	+ Rename a password (passgen mv)
 	+ Copy a password (passgen cp)
-	+ Remove a password (passgen rm)
 	+ Help (passgen help)
 	+ Make the binary work from anywhere in filesystem
 	+ Add possibility to create directories in password-store
