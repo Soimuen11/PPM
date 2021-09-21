@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
 use Switch;
+use File::Copy qw(move);
+use File::Copy qw(copy);
 
 ## Main function ##
 sub main(){
@@ -14,6 +16,7 @@ sub main(){
 		case "clip" {&clip_password();}
 		case "add" {&add_password();}
 		case "rm" {&remove_password();}
+		case "mv" {&rename_password();}
 		case "dmenu" {&dmenu_clipper();}
 	}
 }
@@ -77,8 +80,8 @@ sub init_env() {
 	}
 }
 
-# Generate a list of passwords in the password-store directory in a tree-like
-# manner
+# Generate a list of passwords in the password-store directory
+# in a tree-like manner
 sub get_passwords_list() {
 	my $password_list = `tree ./password-store`;
 	print GREEN $password_list, RESET;
@@ -89,12 +92,6 @@ sub show_password() {
 	my $requested_password = `gpg -d ./password-store/$ARGV[1].gpg`;
 	chomp($requested_password);
 	print "$requested_password\n";
-	#open(my $fh, '<:encoding(UTF-8)', $requested_password)
-	#	or die "Could not open file '$requested_password' $!";
-	#while (my $row = <$fh>) {
-	#	chomp $row;
-	#	print GREEN "Your password: $row", RESET;
-	#}
 }
 
 # Temporarily decrypt password file
@@ -104,7 +101,7 @@ sub clip_password() {
 }
 
 sub dmenu_clipper() {
-	print my $dmenu_choice = `ls ./password-store/ | /usr/bin/dmenu`;
+	print my $dmenu_choice = `ls ./password-store/ | /usr/bin/dmenu -p "Passwords:"`;
 	chomp($dmenu_choice);
 	system("gpg -d ./password-store/$dmenu_choice | xclip -selection c");
 }
@@ -113,6 +110,15 @@ sub remove_password() {
 	unlink "./password-store/$ARGV[1].gpg";
 	print "Removed password $ARGV[1].gpg";
 }
+
+sub rename_password() {
+	my $old_name = "./password-store/$ARGV[1].gpg";
+	my $new_name = "./password-store/$ARGV[2].gpg";
+	move $old_name, $new_name;
+	print "Renamed password $ARGV[1].gpg to $ARGV[2].gpg";
+}
+
+sub copy_password() {}
 
 sub encrypt_password_file() {
 	my ($password_name) = @_;
