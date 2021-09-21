@@ -19,17 +19,16 @@ you feel like something is missing, send me suggestions!
 
 ## To-Dos
 
-1. Fix "show" function.
-2. Add following functionalities:
+1. Add following functionalities:
 	+ Move a password (passgen mv)
 	+ Copy a password (passgen cp)
 	+ Remove a password (passgen rm)
 	+ Help (passgen help)
 	+ Make the binary work from anywhere in filesystem
 	+ Add possibility to create directories in password-store
-3. Package PPM for debian and arch-based distros.
-4. Write **man** page.
-5. Re-write subroutines which use bash to strive and only use Perl syntax.
+2. Package PPM for debian and arch-based distros.
+3. Write **man** page.
+4. Re-write subroutines which use bash to strive and only use Perl syntax.
    Potential modules to implement to do so: 
    + IO::Handle
    + GnuPG::Interface
