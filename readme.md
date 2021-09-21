@@ -21,7 +21,7 @@ you feel like something is missing, send me suggestions!
 
 1. Add following functionalities:
 	+ Remove a password with **passgen rm** [done]
-	+ Rename a password (passgen mv)
+	+ Rename a password (passgen mv) [done]
 	+ Copy a password (passgen cp)
 	+ Help (passgen help)
 	+ Make the binary work from anywhere in filesystem
@@ -47,6 +47,8 @@ now, here are the available commands:
 5. passgen **clip** [password_name]
 6. passgen **add** [password_name]
 7. passgen **dmenu**
+8. passgen **rm** [password_name]
+9. passgen **mv** [old_password_name] [new_password_name]
 
 As a first step, it is important to run **ppm init** to set up the password
 store. You may then generate passwords with **ppm generate** (randomly
