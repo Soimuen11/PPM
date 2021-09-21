@@ -17,6 +17,7 @@ sub main(){
 		case "add" {&add_password();}
 		case "rm" {&remove_password();}
 		case "mv" {&rename_password();}
+		case "cp" {&copy_password();}
 		case "dmenu" {&dmenu_clipper();}
 	}
 }
@@ -115,10 +116,15 @@ sub rename_password() {
 	my $old_name = "./password-store/$ARGV[1].gpg";
 	my $new_name = "./password-store/$ARGV[2].gpg";
 	move $old_name, $new_name;
-	print "Renamed password $ARGV[1].gpg to $ARGV[2].gpg";
+	print "Renamed password $ARGV[1].gpg -> $ARGV[2].gpg";
 }
 
-sub copy_password() {}
+sub copy_password() {
+	my $old_name = "./password-store/$ARGV[1].gpg";
+	my $new_name = "./password-store/$ARGV[2].gpg";
+	copy $old_name, $new_name;
+	print "Copied password $ARGV[1].gpg -> $ARGV[2].gpg";
+}
 
 sub encrypt_password_file() {
 	my ($password_name) = @_;
