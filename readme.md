@@ -23,8 +23,8 @@ you feel like something is missing, send me suggestions!
 	+ Remove a password with **passgen rm** [done]
 	+ Rename a password with **passgen mv** [done]
 	+ Copy a password with **passgen cp** [done]
-	+ Help (passgen help)
-	+ Make the binary work from anywhere in filesystem
+	+ Help with **passgen help** [done]
+	+ Make it work from anywhere in filesystem
 	+ Add possibility to create directories in password-store
 2. Package PPM for debian and arch-based distros.
 3. Write **man** page.
@@ -50,6 +50,7 @@ now, here are the available commands:
 8. passgen **rm** [password_name]
 9. passgen **mv** [old_password_name] [new_password_name]
 10. passgen **cp** [old_password_name] [new_password_name]
+11. passgen **help**: displays help
 
 As a first step, it is important to run **ppm init** to set up the password
 store. You may then generate passwords with **ppm generate** (randomly

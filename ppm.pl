@@ -19,6 +19,7 @@ sub main(){
 		case "mv" {&rename_password();}
 		case "cp" {&copy_password();}
 		case "dmenu" {&dmenu_clipper();}
+		case "help" {&show_help();}
 	}
 }
 
@@ -140,6 +141,26 @@ sub encrypt_password_file() {
 	}else{
 		print "\nError, file has not been created.";
 	}
+}
+
+sub show_help() {
+	print "=======================================================\n";
+	print "====================== PPM HELP =======================\n";
+	print "=======================================================\n";
+	print "1. passgen init: initialize password-store and config file\n";
+	print "2. passgen generate [password_name] [number_of_characters]\n";
+	print "3. passgen add [password_name]\n";
+	print "4. passgen cp [old_password_name [new_password_name]\n";
+	print "5. passgen mv [old_password_name [new_password_name]\n";
+	print "6. passgen rm [password_name]\n";
+	print "7. passgen help: display help\n";
+	print "8. passgen clip [password_name]\n";
+	print "9. passgen dmenu\n";
+	print "10. passgen show [password_name]\n";
+	print "=======================================================\n";
+	print "================== Philippe Iannetta ==================\n";
+	print "==================  madlibrarian.xyz ==================\n";
+	print "=======================================================\n";
 }
 
 ## Function Calls ##
