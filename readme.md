@@ -49,7 +49,7 @@ now, here are the available commands:
 7. passgen **dmenu**
 8. passgen **rm** [password_name]
 9. passgen **mv** [old_password_name] [new_password_name]
-10. passgen **copy** [old_password_name] [new_password_name]
+10. passgen **cp** [old_password_name] [new_password_name]
 
 As a first step, it is important to run **ppm init** to set up the password
 store. You may then generate passwords with **ppm generate** (randomly
