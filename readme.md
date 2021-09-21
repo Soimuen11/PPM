@@ -21,8 +21,8 @@ you feel like something is missing, send me suggestions!
 
 1. Add following functionalities:
 	+ Remove a password with **passgen rm** [done]
-	+ Rename a password (passgen mv) [done]
-	+ Copy a password (passgen cp)
+	+ Rename a password with **passgen mv** [done]
+	+ Copy a password with **passgen cp** [done]
 	+ Help (passgen help)
 	+ Make the binary work from anywhere in filesystem
 	+ Add possibility to create directories in password-store
@@ -104,6 +104,7 @@ cd PPM/
 # Install required CPAN modules
 cpan Switch
 cpan Term::ANSIColor	
+cpan File::Copy
 
 # Give execute permissions to ppm.pl
 chmod u+x ppm.pl
