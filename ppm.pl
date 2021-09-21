@@ -13,6 +13,7 @@ sub main(){
 		case "show" {&show_password();}
 		case "clip" {&clip_password();}
 		case "add" {&add_password();}
+		case "rm" {&remove_password();}
 		case "dmenu" {&dmenu_clipper();}
 	}
 }
@@ -106,6 +107,11 @@ sub dmenu_clipper() {
 	print my $dmenu_choice = `ls ./password-store/ | /usr/bin/dmenu`;
 	chomp($dmenu_choice);
 	system("gpg -d ./password-store/$dmenu_choice | xclip -selection c");
+}
+
+sub remove_password() {
+	unlink "./password-store/$ARGV[1].gpg";
+	print "Removed password $ARGV[1].gpg";
 }
 
 sub encrypt_password_file() {
