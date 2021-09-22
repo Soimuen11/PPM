@@ -45,8 +45,8 @@ sub gen_password {
 		push @password, $character_list[$random];
 	}
 	## Get the generated password and save it into
-	## A file within password-store directory
-	open (PASSWORD_FILE, ">>", "./password-store/$password_name");
+	## A file within .password-store directory
+	open (PASSWORD_FILE, ">>", "./.password-store/$password_name");
 	print PASSWORD_FILE @password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", @password, RESET;
@@ -58,7 +58,7 @@ sub add_password() {
 	my $password_name = $ARGV[1];
 	print "Enter a password: ";
 	my $password = <STDIN>;
-	open (PASSWORD_FILE, ">>", "./password-store/$password_name");
+	open (PASSWORD_FILE, ">>", "./.password-store/$password_name");
 	print PASSWORD_FILE $password;
 	close(PASSWORD_FILE);
 	print GREEN "Your password: ", $password, RESET;
@@ -67,12 +67,12 @@ sub add_password() {
 
 # Initialize password store and .gpg-id
 sub init_env() {
-	my $dir = "./password-store";
+	my $dir = "./.password-store";
 	my $config_file = "./.gpg-id";
 	my $USER = $ENV{'USER'};
 	if (!-e $dir) {
 		mkdir $dir;
-		print GREEN "Created password-store directory\n", RESET;
+		print GREEN "Created .password-store directory\n", RESET;
 	}
 	if (!-e $config_file) {
 		print GREEN "Hello $USER, please enter the email address you use with gnupg:\n", RESET;
@@ -82,16 +82,16 @@ sub init_env() {
 	}
 }
 
-# Generate a list of passwords in the password-store directory
+# Generate a list of passwords in the .password-store directory
 # in a tree-like manner
 sub get_passwords_list() {
-	my $password_list = `tree ./password-store`;
+	my $password_list = `tree ./.password-store`;
 	print GREEN $password_list, RESET;
 }
 
 # Show requested password
 sub show_password() {
-	my $requested_password = `gpg -d ./password-store/$ARGV[1].gpg`;
+	my $requested_password = `gpg -d ./.password-store/$ARGV[1].gpg`;
 	chomp($requested_password);
 	print "$requested_password\n";
 }
@@ -99,30 +99,30 @@ sub show_password() {
 # Temporarily decrypt password file
 # && Clip password (name provided as second argument to the script)
 sub clip_password() {
-	system("gpg -d ./password-store/$ARGV[1].gpg | xclip -selection c")
+	system("gpg -d ./.password-store/$ARGV[1].gpg | xclip -selection c")
 }
 
 sub dmenu_clipper() {
-	print my $dmenu_choice = `ls ./password-store/ | /usr/bin/dmenu -p "Passwords:"`;
+	print my $dmenu_choice = `ls ./.password-store/ | /usr/bin/dmenu -p "Passwords:"`;
 	chomp($dmenu_choice);
-	system("gpg -d ./password-store/$dmenu_choice | xclip -selection c");
+	system("gpg -d ./.password-store/$dmenu_choice | xclip -selection c");
 }
 
 sub remove_password() {
-	unlink "./password-store/$ARGV[1].gpg";
+	unlink "./.password-store/$ARGV[1].gpg";
 	print "Removed password $ARGV[1].gpg";
 }
 
 sub rename_password() {
-	my $old_name = "./password-store/$ARGV[1].gpg";
-	my $new_name = "./password-store/$ARGV[2].gpg";
+	my $old_name = "./.password-store/$ARGV[1].gpg";
+	my $new_name = "./.password-store/$ARGV[2].gpg";
 	move $old_name, $new_name;
 	print "Renamed password $ARGV[1].gpg -> $ARGV[2].gpg";
 }
 
 sub copy_password() {
-	my $old_name = "./password-store/$ARGV[1].gpg";
-	my $new_name = "./password-store/$ARGV[2].gpg";
+	my $old_name = "./.password-store/$ARGV[1].gpg";
+	my $new_name = "./.password-store/$ARGV[2].gpg";
 	copy $old_name, $new_name;
 	print "Copied password $ARGV[1].gpg -> $ARGV[2].gpg";
 }
@@ -134,10 +134,10 @@ sub encrypt_password_file() {
 	open(DATA, "<$config_file") or die "Couldn't open config file .gpg-id";
 	while (<DATA>) { $keyId = "$_";	}
 	chomp($keyId);
-	system("/usr/bin/gpg -r $keyId --encrypt ./password-store/$password_name");
-	unlink "./password-store/$password_name";
-	if (-e "./password-store/$password_name.gpg") {
-		print "\nCreated file ./password-store/$password_name.gpg";
+	system("/usr/bin/gpg -r $keyId --encrypt ./.password-store/$password_name");
+	unlink "./.password-store/$password_name";
+	if (-e "./.password-store/$password_name.gpg") {
+		print "\nCreated file ./.password-store/$password_name.gpg";
 	}else{
 		print "\nError, file has not been created.";
 	}
@@ -147,7 +147,7 @@ sub show_help() {
 	print "=======================================================\n";
 	print "====================== PPM HELP =======================\n";
 	print "=======================================================\n";
-	print "1. passgen init: initialize password-store and config file\n";
+	print "1. passgen init: initialize .password-store and config file\n";
 	print "2. passgen generate [password_name] [number_of_characters]\n";
 	print "3. passgen add [password_name]\n";
 	print "4. passgen cp [old_password_name [new_password_name]\n";
