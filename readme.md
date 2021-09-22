@@ -6,7 +6,7 @@
 
 **Disclaimers:**
 
-+ This program is still being tested, only use it at your own risks.
++ This program is still under development.
 + This is mainly a CLI utility. For efficiency purposes, I recommend having a
   keybinding for the **ppm dmenu** command in your Tiling Window Manager
   configuration.
@@ -14,19 +14,17 @@
 
 **Contribute:**
 
-If you wish to contribute, feel free to make a pull request! If
-you feel like something is missing, send me suggestions!
+If you wish to contribute, feel free to make a pull request!
+Check out the to-do list and see if you would be capable of 
+implementing one of the necessary changes yourself.
+If you feel like something is missing, send me suggestions!
 
 ## To-Dos
 
 1. Add following functionalities:
-	+ Remove a password with **passgen rm** [done]
-	+ Rename a password with **passgen mv** [done]
-	+ Copy a password with **passgen cp** [done]
-	+ Help with **passgen help** [done]
-	+ Make it work from anywhere in filesystem
+	+ Make it work from anywhere in filesystem [Work In Progress]
 	+ Add possibility to create directories in password-store
-2. Package PPM for debian and arch-based distros.
+2. Package it for debian and arch-based distros.
 3. Write **man** page.
 4. Re-write subroutines which use bash to strive and only use Perl syntax.
    Potential modules to implement to do so: 
