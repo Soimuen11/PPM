@@ -24,9 +24,12 @@ If you feel like something is missing, send me suggestions!
 1. Add following functionalities:
 	+ Make it work from anywhere in filesystem [Work In Progress]
 	+ Add possibility to create directories in password-store
-2. Package it for debian and arch-based distros.
-3. Write **man** page.
-4. Re-write subroutines which use bash to strive and only use Perl syntax.
+2. Package it:
+	+ debian-baed distros.
+	+ arch-based distros.
+	+ create perl makefile
+4. Write **man** page.
+5. Re-write subroutines which use bash to strive and only use Perl syntax.
    Potential modules to implement to do so: 
    + IO::Handle
    + GnuPG::Interface
