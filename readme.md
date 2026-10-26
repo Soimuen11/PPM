@@ -1,120 +1,165 @@
-# The Perl Password Manager [PPM]
+# 🔐 PPM — The Perl Password Manager
 
-* [To-Dos](#to-dos)
-* [How To Use It](#how-to-use-it)
-* [How To Install It](#how-to-install-it)
+**A minimalist, GnuPG-based password manager for the command line, written in Perl and inspired by [`pass`](https://www.passwordstore.org/).**
 
-**Disclaimers:**
+[![Perl](https://img.shields.io/badge/Perl-39457E?style=for-the-badge&logo=perl&logoColor=white)](https://www.perl.org/)
+[![GnuPG](https://img.shields.io/badge/GnuPG-0093DD?style=for-the-badge&logo=gnuprivacyguard&logoColor=white)](https://gnupg.org/)
+[![Platform](https://img.shields.io/badge/Platform-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](#-requirements)
+[![Status](https://img.shields.io/badge/Status-In_development-orange?style=for-the-badge)](#-roadmap)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-+ This program is still under development.
-+ This is mainly a CLI utility. For efficiency purposes, I recommend having a
-  keybinding for the **ppm dmenu** command in your Tiling Window Manager
-  configuration.
-+ Yes, this project is inspired by another password manager called **pass**.
+---
 
-**Contribute:**
+## 💡 About The Project
 
-If you wish to contribute, feel free to make a pull request!
-Check out the to-do list and see if you would be capable of 
-implementing one of the necessary changes yourself.
-If you feel like something is missing, send me suggestions!
+**PPM** stores each password in its own GnuPG-encrypted file, inside a plain directory tree. There is no database and no daemon: your store is just files you can back up, sync or version with Git.
 
-## To-Dos
+It is built around a few ideas:
 
-1. Add following functionalities:
-	+ Make it work from anywhere in filesystem [Work In Progress]
-	+ Add possibility to create directories in password-store
-2. Package it:
-	+ debian-baed distros.
-	+ arch-based distros.
-	+ create perl makefile
-4. Write **man** page.
-5. Re-write subroutines which use bash to strive and only use Perl syntax.
-   Potential modules to implement to do so: 
-   + IO::Handle
-   + GnuPG::Interface
-   + Clipboard::Xclip
-7. Add a simple GUI or ncurses interface.
+- **Simple**: one Perl script, a handful of commands.
+- **Safe by design**: passwords are encrypted in memory and never written to disk in clear text; names typed on the command line are never interpreted by a shell.
+- **Keyboard-driven**: a `dmenu` mode lets you copy any password to the clipboard with a single keybinding.
 
-## How To Use It
+---
 
-Once installed, this program has been designed to be used in a terminal. For
-now, here are the available commands:
+## 🌟 Features
 
-1. passgen **list**
-2. passgen **init**
-3. passgen **generate** [password_name] [nb_characters_in_password]
-4. passgen **show** [password_name]
-5. passgen **clip** [password_name]
-6. passgen **add** [password_name]
-7. passgen **dmenu**
-8. passgen **rm** [password_name]
-9. passgen **mv** [old_password_name] [new_password_name]
-10. passgen **cp** [old_password_name] [new_password_name]
-11. passgen **help**: displays help
+- 🔑 Generate random passwords (cryptographically secure source: `/dev/urandom`)
+- ➕ Add your own passwords, with hidden input and confirmation
+- 📋 Copy to the clipboard (`xclip`) or print to the terminal
+- 🗂️ Nested entries (`web/github`, `mail/work`…) displayed as a tree
+- ⚡ `dmenu` integration for quick access from your window manager
+- 🔒 GnuPG handled natively through [`GnuPG::Interface`](https://metacpan.org/pod/GnuPG::Interface), with no `system()` call
 
-As a first step, it is important to run **ppm init** to set up the password
-store. You may then generate passwords with **ppm generate** (randomly
-generates a password with the number of characters which you specified), or
-**ppm add**. To show a password or add it to your clipboard, you can
-respectively use the commands **ppm show** and **ppm clip**. Finally, you may
-list all the passwords in your password store with the command **ppm list**.
-If you run **ppm dmenu**, it will output a list of your passwords within the
-password-store into dmenu. If you select one, the passwords will be copied into
-your clipboard.
+---
 
-## How To Install It
+## 📦 Requirements
 
-+ Dependencies:
-
-	- Perl 5 (should already be installed)
-	- Dmenu
-	- Tree
-	- Gpg
-	- Xclip
-	- Git
+| Dependency | Purpose |
+|:--|:--|
+| Perl 5 | Runtime |
+| GnuPG (`gpg`) | Encryption and decryption |
+| `GnuPG::Interface` | Perl interface to GnuPG |
+| `Term::ReadKey` | Hidden password prompt |
+| `xclip` | Clipboard access |
+| `dmenu` | Optional: `ppm dmenu` command |
+| Git | Optional: to clone and version your store |
 
 ```bash
-# For Debian & Ubuntu-based Linux systems
-sudo apt update && sudo apt upgrade -y && sudo apt install perl dmenu tree gpg xclip git
+# Debian & Ubuntu-based systems
+sudo apt update
+sudo apt install perl gpg xclip dmenu git libgnupg-interface-perl libterm-readkey-perl
 
-# For Arch-based Linux systems
-sudo pacman -Syu perl dmenu tree gpg xclip git
+# Arch-based systems
+sudo pacman -S perl gnupg xclip dmenu git
+cpan GnuPG::Interface Term::ReadKey
 ```
 
-+ Set up gpg:
+> `Term::ANSIColor`, `File::Copy`, `File::Find` and the other modules used by PPM ship with Perl.
+
+---
+
+## 🛠️ Installation
+
+**1. Create a GnuPG key** (skip this if you already have one):
 
 ```bash
-gpg --full-gen-key # Initialize /home/$USER/.gnupg and RSA key
+gpg --full-gen-key
 ```
 
-+ To install from source, run the following commands:
+**2. Install PPM from source:**
 
 ```bash
-# Create /home/$USER/.local/repos && /home/$USER/.local/bin
-# If they do not already exist
-mkdir -p /home/$USER/.local/repos /home/$USER/.local/bin
-
-# Cd into /home/$USER/.local/repos
-cd /home/$USER/.local/repos
-
 # Clone the repository
-git clone https://github.com/Soimuen11/PPM.git
+mkdir -p ~/.local/repos ~/.local/bin
+git clone https://github.com/Soimuen11/PPM.git ~/.local/repos/PPM
 
-# Cd into the project repository
-cd PPM/
-
-# Install required CPAN modules
-cpan Switch
-cpan Term::ANSIColor	
-cpan File::Copy
-
-# Give execute permissions to ppm.pl
-chmod u+x ppm.pl
-
-# Create a symlink from .local/repo to .local/bin
-ln -s /home/$USER/.local/repo/PPM/ppm.pl /home/$USER/.local/bin/passgen
-
-# Optional step: Add the **ppm dmenu** command to your tiling window manager's
-# list of keybindings.  
+# Make it executable and expose it as `ppm`
+chmod u+x ~/.local/repos/PPM/ppm.pl
+ln -s ~/.local/repos/PPM/ppm.pl ~/.local/bin/ppm
 ```
+
+Make sure `~/.local/bin` is in your `PATH`.
+
+**3. Initialize your password store:**
+
+```bash
+ppm init
+```
+
+PPM asks for the email address (or key ID) of your GnuPG key and creates `~/.password-store`.
+
+---
+
+## 🚀 Usage
+
+```bash
+ppm generate web/github 24     # generate a 24-character password
+ppm add mail/work              # type in a password yourself
+ppm list                       # display the store as a tree
+ppm show web/github            # print a password
+ppm clip web/github            # copy a password to the clipboard
+ppm dmenu                      # pick a password with dmenu, then copy it
+```
+
+### Commands
+
+| Command | Description |
+|:--|:--|
+| `ppm init` | Create the password store and register your GnuPG key |
+| `ppm generate <name> [length]` | Generate and store a random password (default length: 20) |
+| `ppm add <name>` | Store a password you type in |
+| `ppm show <name>` | Print a password |
+| `ppm clip <name>` | Copy a password to the clipboard |
+| `ppm list` | List all entries as a tree |
+| `ppm dmenu` | Choose an entry with dmenu and copy it |
+| `ppm cp <old> <new>` | Copy an entry |
+| `ppm mv <old> <new>` | Rename or move an entry |
+| `ppm rm <name>` | Remove an entry |
+| `ppm help` | Display the help |
+
+### Keybinding for your window manager
+
+`ppm dmenu` is designed to be bound to a shortcut. For example with **i3** or **sway**:
+
+```
+bindsym $mod+p exec ppm dmenu
+```
+
+### Configuration
+
+| Variable | Default | Description |
+|:--|:--|:--|
+| `PPM_DIR` | `~/.password-store` | Location of the password store |
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Work from anywhere in the filesystem
+- [x] Create nested directories in the password store
+- [x] Replace shell calls with native Perl (`GnuPG::Interface`, `IPC::Open2`, list-form pipes)
+- [ ] Clear the clipboard automatically after a delay
+- [ ] Package for Debian-based distributions
+- [ ] Package for Arch-based distributions
+- [ ] Add a `Makefile.PL`
+- [ ] Write a `man` page
+- [ ] Add a simple GUI or ncurses interface
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Pick an item from the [roadmap](#-roadmap), fork the repository and open a **Pull Request**. Bug reports and suggestions are welcome too: feel free to open an [**Issue**](https://github.com/Soimuen11/PPM/issues).
+
+---
+
+## 👨‍💻 Author
+
+**Philippe Iannetta** ([@Soimuen11](https://github.com/Soimuen11))
+
+- **Blog**: [blog.phiannetta.xyz](https://blog.phiannetta.xyz)
+- **Portfolio**: [portfolio.phiannetta.xyz](https://portfolio.phiannetta.xyz)
+- **FreeWiki**: [freewiki.phiannetta.xyz](https://freewiki.phiannetta.xyz)
+
+PPM is inspired by [**pass**](https://www.passwordstore.org/), the standard unix password manager.
