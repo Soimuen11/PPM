@@ -89,6 +89,9 @@ ppm init
 
 PPM asks for the email address (or key ID) of your GnuPG key and creates `~/.password-store`.
 
+PPM is compatible with `pass`. Step 3 can be skipped if you were using `pass`
+and already have a `~/.password-store` in your home directory.
+
 ---
 
 ## 🚀 Usage
